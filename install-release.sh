@@ -163,12 +163,12 @@ sysArch(){
 downloadV2Ray(){
     rm -rf /tmp/v2ray
     mkdir -p /tmp/v2ray
-    colorEcho ${BLUE} "Downloading V2Ray."
+    colorEcho ${BLUE} "下载 V2Ray-4.22.1.6后端程序."
     DOWNLOAD_LINK="https://github.com/RManLuo/crack-v2ray-sspanel-v3-mod_Uim-plugin/releases/download/crack_4.22.1/crack_v2ray-4.22.1.6.zip"
     colorEcho ${BLUE} ${DOWNLOAD_LINK}
     curl ${PROXY} -L -H "Cache-Control: no-cache" -o ${ZIPFILE} ${DOWNLOAD_LINK}
     if [ $? != 0 ];then
-        colorEcho ${RED} "Failed to download! Please check your network or try again."
+        colorEcho ${RED} "下载失败！请检查您的网络或重试."
         return 3
     fi
     return 0
@@ -182,7 +182,7 @@ installSoftware(){
 
     getPMT
     if [[ $? -eq 1 ]]; then
-        colorEcho ${RED} "The system package manager tool isn't APT or YUM, please install ${COMPONENT} manually."
+        colorEcho ${RED} "系统软件包管理器工具不是APT或YUM, 请安装 ${COMPONENT} 手动模式."
         return 1
     fi
     if [[ $SOFTWARE_UPDATED -eq 0 ]]; then
@@ -191,10 +191,10 @@ installSoftware(){
         SOFTWARE_UPDATED=1
     fi
 
-    colorEcho ${BLUE} "Installing ${COMPONENT}"
+    colorEcho ${BLUE} "正在安装 ${COMPONENT}"
     $CMD_INSTALL $COMPONENT
     if [[ $? -ne 0 ]]; then
-        colorEcho ${RED} "Failed to install ${COMPONENT}. Please install it manually."
+        colorEcho ${RED} "安装失败 ${COMPONENT}. 请手动安装."
         return 1
     fi
     return 0
@@ -218,11 +218,11 @@ getPMT(){
 }
 
 extract(){
-    colorEcho ${BLUE}"Extracting V2Ray package to /tmp/v2ray."
+    colorEcho ${BLUE}"将V2Ray包提取到 /tmp/v2ray."
     mkdir -p /tmp/v2ray
     unzip $1 -d ${VSRC_ROOT}
     if [[ $? -ne 0 ]]; then
-        colorEcho ${RED} "Failed to extract V2Ray."
+        colorEcho ${RED} "无法提取 V2Ray."
         return 2
     fi
     if [[ -d "/tmp/v2ray/v2ray-${NEW_VER}-linux-${VDIS}" ]]; then
@@ -253,7 +253,7 @@ getVersion(){
           NEW_VER=v${NEW_VER}
         fi
         if [[ $? -ne 0 ]] || [[ $NEW_VER == "" ]]; then
-            colorEcho ${RED} "Failed to fetch release information. Please check your network or try again."
+            colorEcho ${RED} "无法获取发布信息.请检查您的网络或重试."
             return 3
         elif [[ $RETVAL -ne 0 ]];then
             return 2
@@ -265,14 +265,14 @@ getVersion(){
 }
 
 stopV2ray(){
-    colorEcho ${BLUE} "Shutting down V2Ray service."
+    colorEcho ${BLUE} "停止V2Ray服务."
     if [[ -n "${SYSTEMCTL_CMD}" ]] || [[ -f "/lib/systemd/system/v2ray.service" ]] || [[ -f "/etc/systemd/system/v2ray.service" ]]; then
         ${SYSTEMCTL_CMD} stop v2ray
     elif [[ -n "${SERVICE_CMD}" ]] || [[ -f "/etc/init.d/v2ray" ]]; then
         ${SERVICE_CMD} v2ray stop
     fi
     if [[ $? -ne 0 ]]; then
-        colorEcho ${YELLOW} "Failed to shutdown V2Ray service."
+        colorEcho ${YELLOW} "无法停止V2Ray服务."
         return 2
     fi
     return 0
@@ -287,7 +287,7 @@ startV2ray(){
         ${SERVICE_CMD} v2ray start
     fi
     if [[ $? -ne 0 ]]; then
-        colorEcho ${YELLOW} "Failed to start V2Ray service."
+        colorEcho ${YELLOW} "无法启动V2Ray服务."
         return 2
     fi
     return 0
@@ -312,14 +312,14 @@ installV2Ray(){
     mkdir -p /usr/bin/v2ray
     copyFile v2ray
     if [[ $? -ne 0 ]]; then
-        colorEcho ${RED} "Failed to copy V2Ray binary and resources."
+        colorEcho ${RED} "复制V2Ray二进制文件和资源失败."
         return 1
     fi
     makeExecutable v2ray
     copyFile v2ctl && makeExecutable v2ctl
     copyFile geoip.dat
     copyFile geosite.dat
-    colorEcho ${BLUE} "Setting TimeZone to Shanghai"
+    colorEcho ${BLUE} "将时区设置为上海"
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
     date -s "$(curl -sI g.cn | grep Date | cut -d' ' -f3-6)Z"
 
@@ -329,7 +329,7 @@ installV2Ray(){
         mkdir -p /var/log/v2ray
         cp "${VSRC_ROOT}/vpoint_vmess_freedom.json" "/etc/v2ray/config.json"
         if [[ $? -ne 0 ]]; then
-            colorEcho ${YELLOW} "Failed to create V2Ray configuration file. Please create it manually."
+            colorEcho ${YELLOW} "无法创建V2Ray配置文件.请手动创建."
             return 1
         fi
 
@@ -389,7 +389,7 @@ installV2Ray(){
 
         if [ ! -z "${SPEEDTESTRATE}" ]
         then
-                sed -i "s|\"SpeedTestCheckRate\": 6|\"SpeedTestCheckRate\": ${SPEEDTESTRATE}|g" "/etc/v2ray/config.json"
+                sed -i "s|\"SpeedTestCheckRate\": 24|\"SpeedTestCheckRate\": ${SPEEDTESTRATE}|g" "/etc/v2ray/config.json"
                 colorEcho ${BLUE} "SPEEDTESTRATE:${SPEEDTESTRATE}"
 
         fi
@@ -464,11 +464,11 @@ remove(){
         systemctl disable v2ray.service
         rm -rf "/usr/bin/v2ray" "/etc/systemd/system/v2ray.service"
         if [[ $? -ne 0 ]]; then
-            colorEcho ${RED} "Failed to remove V2Ray."
+            colorEcho ${RED} "移除V2Ray失败."
             return 0
         else
-            colorEcho ${GREEN} "Removed V2Ray successfully."
-            colorEcho ${BLUE} "If necessary, please remove configuration file and log file manually."
+            colorEcho ${GREEN} "成功移除V2Ray."
+            colorEcho ${BLUE} "如有必要,请手动删除配置文件和日志文件."
             return 0
         fi
     elif [[ -n "${SYSTEMCTL_CMD}" ]] && [[ -f "/lib/systemd/system/v2ray.service" ]];then
@@ -478,11 +478,11 @@ remove(){
         systemctl disable v2ray.service
         rm -rf "/usr/bin/v2ray" "/lib/systemd/system/v2ray.service"
         if [[ $? -ne 0 ]]; then
-            colorEcho ${RED} "Failed to remove V2Ray."
+            colorEcho ${RED} "移除V2Ray失败."
             return 0
         else
-            colorEcho ${GREEN} "Removed V2Ray successfully."
-            colorEcho ${BLUE} "If necessary, please remove configuration file and log file manually."
+            colorEcho ${GREEN} "成功移除V2Ray."
+            colorEcho ${BLUE} "如有必要,请手动删除配置文件和日志文件."
             return 0
         fi
     elif [[ -n "${SERVICE_CMD}" ]] && [[ -f "/etc/init.d/v2ray" ]]; then
@@ -491,15 +491,15 @@ remove(){
         fi
         rm -rf "/usr/bin/v2ray" "/etc/init.d/v2ray"
         if [[ $? -ne 0 ]]; then
-            colorEcho ${RED} "Failed to remove V2Ray."
+            colorEcho ${RED} "移除V2Ray失败."
             return 0
         else
-            colorEcho ${GREEN} "Removed V2Ray successfully."
-            colorEcho ${BLUE} "If necessary, please remove configuration file and log file manually."
+            colorEcho ${GREEN} "成功移除V2Ray."
+            colorEcho ${BLUE} "如有必要,请手动删除配置文件和日志文件."
             return 0
         fi
     else
-        colorEcho ${YELLOW} "V2Ray not found."
+        colorEcho ${YELLOW} "找不到V2Ray."
         return 0
     fi
 }
