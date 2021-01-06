@@ -9,13 +9,11 @@ Malio SSPANEL主题 + V2Ray后端，原价1000，现在只需899（V2ray 是按�
 ## 普通安装
 ### 后端安装
 ``` bash
-bash <(curl -L -s  https://raw.githubusercontent.com/RManLuo/crack-v2ray-sspanel-v3-mod_Uim-plugin/master/install-release.sh) \
---panelurl http://webapi.com --panelkey webkey --nodeid 2 \
---downwithpanel 1 --speedtestrate 6 --paneltype 0 --usemysql 0 --cfemail mail --cfkey xxx
+wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/install-release.sh" && chmod +x install-release.sh && ./install-release.sh
 ```
 ### caddy安装
 ``` bash
-bash <(curl -L -s https://raw.githubusercontent.com/RManLuo/crack-v2ray-sspanel-v3-mod_Uim-plugin/master/install_caddy.sh) node.com xxx@gmail.com https://fakeurl.com v2ray 10550
+wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/install_caddy.sh" && chmod +x install_caddy.sh && ./install_caddy.sh
 ```
 
 ## Docker
