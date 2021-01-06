@@ -510,12 +510,12 @@ checkUpdate(){
     getVersion
     RETVAL="$?"
     if [[ $RETVAL -eq 1 ]]; then
-        colorEcho ${BLUE} "Found new version ${NEW_VER} for V2Ray.(Current version:$CUR_VER)"
+        colorEcho ${BLUE} "有新的V2Ray版本 ${NEW_VER}. (当前版本:$CUR_VER)"
     elif [[ $RETVAL -eq 0 ]]; then
-        colorEcho ${BLUE} "No new version. Current version is ${NEW_VER}."
+        colorEcho ${BLUE} "没有新版本. 当前版本是:${NEW_VER}."
     elif [[ $RETVAL -eq 2 ]]; then
-        colorEcho ${YELLOW} "No V2Ray installed."
-        colorEcho ${BLUE} "The newest version for V2Ray is ${NEW_VER}."
+        colorEcho ${YELLOW} "未安装V2Ray."
+        colorEcho ${BLUE} "V2Ray的最新版本是:${NEW_VER}."
     fi
     return 0
 }
@@ -529,11 +529,11 @@ main(){
     sysArch
     # extract local file
     if [[ $LOCAL_INSTALL -eq 1 ]]; then
-        colorEcho ${YELLOW} "Installing V2Ray via local file. Please make sure the file is a valid V2Ray package, as we are not able to determine that."
+        colorEcho ${YELLOW} "通过本地文件安装V2Ray,请确保该文件是有效的V2Ray软件包."
         NEW_VER=local
         installSoftware unzip || return $?
         installSoftware "socat" || return $?
-        colorEcho  ${YELLOW} "Downloading acme.sh"
+        colorEcho  ${YELLOW} "下载 acme.sh"
         curl https://get.acme.sh | sh
         rm -rf /tmp/v2ray
         extract $LOCAL || return $?
@@ -552,12 +552,12 @@ main(){
         # download via network and extract
         installSoftware "curl" || return $?
         installSoftware "socat" || return $?
-        colorEcho  ${YELLOW} "Downloading acme.sh"
+        colorEcho  ${YELLOW} "下载 acme.sh"
         curl https://get.acme.sh | sh
         getVersion
         RETVAL="$?"
         if [[ $RETVAL == 0 ]] && [[ "$FORCE" != "1" ]]; then
-            colorEcho ${BLUE} "Latest version ${NEW_VER} is already installed."
+            colorEcho ${BLUE} "最新版本 ${NEW_VER} 已经安装."
             if [[ "${ERROR_IF_UPTODATE}" == "1" ]]; then
               return 10
             fi
@@ -573,7 +573,7 @@ main(){
     fi
 
     if [[ "${EXTRACT_ONLY}" == "1" ]]; then
-        colorEcho ${GREEN} "V2Ray extracted to ${VSRC_ROOT}, and exiting..."
+        colorEcho ${GREEN} "提取V2Ray ${VSRC_ROOT}, 然后退出..."
         return 0
     fi
 
@@ -584,7 +584,7 @@ main(){
     installV2Ray || return $?
     installInitScript || return $?
     if [[ ${V2RAY_RUNNING} -eq 1 ]];then
-        colorEcho ${BLUE} "Restarting V2Ray service."
+        colorEcho ${BLUE} "重启V2Ray服务."
         startV2ray
     fi
     colorEcho ${GREEN} "V2Ray ${NEW_VER} is installed."
