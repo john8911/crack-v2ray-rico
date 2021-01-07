@@ -6,7 +6,7 @@
 ## 普通安装
 ### 后端安装
 ``` bash
-wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/install-release.sh" && chmod +x install-release.sh && ./install-release.sh
+wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/install-v2ray.sh" && chmod +x install-v2ray.sh && ./install-v2ray.sh
 ```
 ### caddy安装
 ``` bash
