@@ -8,6 +8,6 @@
 wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/install-v2ray.sh" && chmod +x install-v2ray.sh && ./install-v2ray.sh
 ```
 ### caddy安装
-``` bash
-wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/install_caddy.sh" && chmod +x install_caddy.sh && ./install_caddy.sh
+```
+wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/caddy_centos.sh" && chmod +x caddy_centos.sh && ./caddy_centos.sh.sh
 ```
