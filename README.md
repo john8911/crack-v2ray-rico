@@ -9,5 +9,5 @@ wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/inst
 ```
 ### caddy安装
 ```
-wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/caddy_centos.sh" && chmod +x caddy_centos.sh && ./caddy_centos.sh.sh
+wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/caddy_centos.sh" && chmod +x caddy_centos.sh && ./caddy_centos.sh
 ```
