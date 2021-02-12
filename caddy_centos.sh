@@ -9,7 +9,7 @@ _download_caddy_file() {
 	echo "deb [trusted=yes] https://apt.fury.io/caddy/ /" | sudo tee -a /etc/apt/sources.list.d/caddy-fury.list
 	yum install apt-transport-https
 	yum update
-  yum install caddy
+	yum install caddy
 	if [[ ! -f /usr/bin/caddy ]]; then
 		echo -e "$red 安装 Caddy 出错！$none" && exit 1
 	fi
