@@ -24,5 +24,5 @@ sudo systemctl disable v2ray.service
 
 ### caddy安装
 ```
-wget -N "https://raw.githubusercontent.com/john8911/crack-v2ray-rico/master/caddy_centos.sh" && chmod +x caddy_centos.sh && ./caddy_centos.sh
+wget -N "https://raw.githubusercontent.com/iiiiiii1/doubi/blob/master/caddy_install.sh" && chmod +x caddy_centos.sh && ./caddy_centos.sh
 ```
